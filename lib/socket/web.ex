@@ -60,6 +60,14 @@ defmodule Socket.Web do
     defp close_code(unquote(code)), do: unquote(name)
   end
 
+  defp close_code(any) do
+    if is_atom any do
+      close_code(:abnormal)
+    else
+      { :unknown, any }
+    end
+  end
+
   defmacrop known?(n) do
     quote do
       unquote(n) in [0x1, 0x2, 0x8, 0x9, 0xA]
